@@ -1,7 +1,7 @@
 ---
 title: "Chapter 2"
 date: 2021/09/07"
-name: "Philwoo, Han"
+author: "Philwoo, Han"
 output: html_notebook
 ---
 # Chapter 2 R basics
@@ -176,6 +176,223 @@ c <- -1
 ```
 
 ## 2.3 Exercises
+
+1. What is the sume of the first 100 positive integers? The formulat for the sum of integers $1$ through $n$ is $n(n + 1) / 2$ Define $n = 100$ and then use R to compute the sume of $1$ through $100$ using the formula. What is the sum?
+```{r}
+n <- 100
+(n * (n + 1)) / 2
+```
+2. Now use the same formula to compute the sume of the integers from 1 through 1,000.
+```{r}
+n <- 1000
+(n * (n+1)) / 2
+```
+3. Look at the result of typing the following code into R:
+```{r}
+n <- 1000
+x <- seq(1, n)
+sum(x)
+```
+Based on the result, what do you think the functions seq and sum do? You can use help.
+b. seq creates a list of numbers and sum adds them up.
+
+4. In math and programming, we say that we evaluate a function when we replace the argument with a given number. So if we type sqrt(4), we evaluate the sqrt function. In R, you can evaluate a function inside another function. The evaluations happen from the inside out. Use one line of code to compute th log, in base 10, of the square root of 100.
+```{r}
+log(sqrt(100), base = 10)
+```
+5. Which of the following will always return the numeric value stored in x? You can try out examples and use the help system if you want.
+c. log(exp(x))
+
+## 2.4 Data types
+
+Variables in R can be different types. For example, we need to distinguish numbers from chracter strings and tables from simple lists of numbers. The function class helps us determine what type of object we have:
+```{r}
+a <- 2
+class(a)
+```
+To work efficiently in R, it is important to learn the different types of variables and what we can do with these.
+
+### 2.4.1 Data frames
+
+Up to now, the variables we have defined are just one number. This is not very useful for storing data. The most common way of storing a dataset in R is in a *data frame*. Conceptually, we can think of a data frame as a table with rows representing observations and the different variables reported for each observation defining the colums. Data frames are particularly useful for datasets becasue we can combine different data types into one object.
+A large proportion of data analysis challenges start with data stored in a data frame. For example, we stored the data for our motivating example in a data frame. You can access this dataset by loading the **dslabs** libary and loading the murders dataset using the data function:
+```{r}
+library(dslabs)
+data(murders)
+```
+To see that this is in fact a data frame, we type:
+```{r}
+class(murders)
+```
+
+### 2.4.2 Examining an object
+
+The function str is useful for finding out more about the structure of an object:
+```{r}
+str(murders)
+```
+This tells us much more about the object. We see that the table has 51 rows (50 states plus DC) and five variables. We can show the first six lines using the function head:
+```{r}
+head(murders)
+```
+In this dataset, each state is considered an observation and five variables are reported for each state.
+Before we go any further in answering our orginal question about different states, lets learn more about the components of this object.
+
+### 2.4.3 The accessor: $
+
+For our analysis, we will need to access the different variables represented by colums included in this data frame. To do this, we use the accessor operator $ in the following way:
+```{r}
+murders$population
+```
+But how did we know to use population? Previously, by applying the function str to the object murders, we revealed the names for each of the five variables stored in this table. We can quickly access the variable names using.
+```{r}
+names(murders)
+```
+It is important to know that the order of the entries in murders$population preserves the order of the rows in our data table. This will later permit us to minipulate one variable based on the results of another. For example, we will be able to order the stated names by the number of murders.
+**Tip**: R comes with a very nice auto-complete functionality that saves us the trouble of typing out all the names. Try typing murder$p the hitting the *tab* key on you keyboard. This functionality and many other useful auto-complete features are avilable when working in RStudio.
+
+
+### 2.4.4 Vectors: numerics, characters, and logical
+
+The object murders$population is not one number but several. We call these types of objects *vectors*. A single number is technically a vector of length 1, but in general we use the term vectors to refer to objects with several entries. The function length tells you how many entries are in the vector:
+```{r}
+pop <- murders$population
+length(pop)
+```
+This particular vector is *numeric* since population sizes are numbers:
+```{r}
+class(pop)
+```
+In a numeric vector, every entry must be a number
+To store character strings, vectors can also be of class *character* For example, the state names are characters
+```{r}
+class(murders$state)
+```
+As with numeric vectors, all entries in a character vector need to be a character.
+Another important type of vectors are *logical vectors*. These must be either TURE or FALSE.
+```{r}
+z <- 3 == 2
+z
+class(z)
+```
+Here the == is a relational operator asking if 3 is equal to 2. In R, if you just use one =, you actually assign a variable, but if you use two == you test for equality.
+You can see the other *relational operators by typing:*
+```{r}
+?Comparison
+```
+In future sections, you will see how useful relational operators can be.
+We discuss more important features of vectors after the next set of exercises.
+**Advanced**: Mathematically, the values in pop are integers and there is an integer class is R. However, by default, numbers are assigned class numeric even when they are round integers. For example, class(1) retruns numeric. You can turn them into class integer with the as.integer() function or by adding an L like this: 1L. Note the class by typing: class(1L)
+
+### 2.4.5 Factors
+
+In the murders dataset, we might expect the region to also be a character vector. However, it is not:
+```{r}
+class(murders$region)
+```
+It is a *factor*. Factors are useful for storing categorical data. We can see that tehre are only 4 regions by using the levels function.
+```{r}
+levels(murders$region)
+```
+In the background, R stores these *levels* as integers and keeps a map to keep track of the labels. This is more memory efficient than storing all the characters.
+Note that the levels have an order that is different from the order of appearance in the factor object. The default in R is for the levels to follow alphabetical order. However, often we want the levels to follow a different order. You can specify an order through the levels argument when creating the factor with the factor function. For example, in the murders dataset regions are ordered from east to west. The function reorder lets us change the order of the levels of a factor variable based on a summary computed on a numeric vector. We will demonstrate this with a simple example, and will see more advanced ones in the Data Visualization part of the book.
+Suppose we want the levels of the region by the total number of murders rather than alphabetical order. If there are values associated with each level, we can use the reorder and specify a data summary to determine the order. The following code takes the sume of the total murders in each region, and reorders the factor following these sums.
+```{r}
+region <- murders$region
+value <- murders$total
+region <- reorder(region, value, FUN = sum)
+levels(region)
+```
+The new order is in agreement with the fact that the Northeast has the least murders and the South has the most.
+**Warning**: Factors can be a source of confusion since sometimes they behave like characters and sometimes they do not. As a result, confusion factors and characters are a common source of bugs.
+
+###2.4.6
+
+Data frames are a special case of **lists**. Lists are useful because you can store any combination of different types. You can create a list using the list function like this:
+```{r}
+record <- list(name = "John Doe",
+               studen_id = 1234,
+               grades = c(95, 82, 91, 97, 93),
+               final_grade = "A")
+```
+The function c is described in Section 2.6
+This list includes a character, a number, a vector with five numbers, and another character.
+```{r}
+record
+class(record)
+```
+As with data frames, you can extract the components of a list with the accessor $.
+```{r}
+record$studen_id
+```
+We can also use double square brackets( [[ ) like this:
+```{r}
+record[["studen_id"]]
+```
+You should get used to the fact that in R, there are often several ways to do the same thing, such as accessing entries.
+You miight also encounter lists without variable names.
+```{r}
+record2 <- list("John Doe", 1234)
+record2
+```
+If a list deos not have names, yhou cannot extract the elements with $, but you can still use the brackets method and instead of providing the variable name, you provide the list index, like this
+```{r}
+record2[[1]]
+```
+We won't be using lists until later, but you might encounter one in your own exploration of R. For this reason, we show you some basics here.
+
+### 2.4.7 Matrices
+
+Matrices are another type of object that are common in R. Matrices are similar to data frames in that they are two-dimensional: they have rows and columns. However, like numeric, character and logical vectors, entries in matrices have to be all the same type. For this reason data frames are much more useful for storing data, since we can have characters, factors, and numbers in them.
+Yet matrices have a major advantage over data Frames: we can perform matrix algebra operations, a powerful type of mathematical technique. We do not describe these operations in this book, but much of what happens in the background when you perform a data analysis involves matrices. We cover matrices in more detail in Chapter 33.1 but describe them briefly here since some of the functions we will learn return matrices.
+We can define a matrix using the matrix function. We need to specify the number of rows and colums.
+```{r}
+mat <- matrix(1:12, 4, 3)
+mat
+```
+You can access specific entries in a matrix using square brackets( [ ) If you want the second row, third column, you use:
+```{r}
+mat[2, 3]
+```
+If you want the entire second row, you leave the column spot empty:
+```{r}
+mat[2, ]
+```
+Notice that this returns a vector, not a matrix.
+Similarly, if you want the entire third column, you leave the row spot emppty:
+```{r}
+mat[ , 3]
+```
+This is also a vector, not a matrix.
+You can access more than one colun or more than one row if you like, This will give you a new matrix.
+```{r}
+mat[ , 2:3]
+```
+You can subset both rows and columns:
+```{r}
+mat[1:2, 2:3]
+```
+We can convert matrices into data frames using the function as.data.frame:
+```{r}
+as.data.frame(mat)
+```
+You can also use single square brackets( [ ) to access rows and columns of a data frame:
+```{r}
+data("murders")
+murders[25, 1]
+murders[2:3, ]
+```
+
+## 2.5 Exercises
+1. Load the US murders dataset.
+```{r}
+library(dslabs)
+data(murders)
+```
+Use the function str to examine the structure of the murders object. Which of the following best describes the variables represented in the data frame?
+```{r}
+str(murders)
+```
 
 
 
