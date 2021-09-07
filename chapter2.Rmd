@@ -144,11 +144,40 @@ soultions_2 <- (-b - sqrt(b^2 - 4*a*c)) / (2*a)
 For more advice, we highly recommend studying Hadley Wickham's style guide.
 
 ### 2.2.6 Saving your workspace
-```{r}
 
+Values remain in the workspace until you end your session or erase them with the function rm. But workspaces also can be saved for later use. In fact, when you quit R, the program asks you if you want to save your workspace. If you do save it, the next time you start R, the program will restore the workspace.
+We actually recommend against saving the workspace this way because, as you start working on different projects, it will become harder to keep track of what is saved. Instead, we recommend you assign the workspace a specific name. You can do this by using the function save or save.image. To load, use the function load. When saving a workspace, we recommend the suffix rda or RData/ In RStudio, You can also do this by navigation to the *Session* tab and choosing *Save workspace as*. you can later load it using the *Load Workspace* options in the same tab. You can read the help pages on save, save.iage, and load to learn more.
+
+### 2.2.7 Motivating scripts
+
+To solve another equation such as $3x^2 + 2x - 1$, we can copy and paste the code above and then redefine the variables and recompute the solution:
+```{r}
+a <- 3
+b <- 2
+c <- -1
+(-b + sqrt(b^2 - 4*a*c)) / (2*a)
+(-b - sqrt(b^2 - 4*a*c)) / (2*a)
+```
+by creating and saving a script with the code above, we would no need to retype everything each time and instead, simply change the variable names. Try writing the script above into an editor and notice how easy it is to change the variables and receive an answer.
+
+
+### 2.2.8 Commenting your code
+
+If a line of R code starts with the symbol #, it is not evaluated. We can us this to write reminders of why we wrote particular code. For example, in the script above we could add:
+```{r}
+## Code to compute solution to quadratic equation of the form ax^2 + bx + c
+## define the variables
+a <- 3
+b <- 2
+c <- -1
+## now compute the solution
+(-b + sqrt(b^2 - 4*a*c)) / (2*a)
+(-b - sqrt(b^2 - 4*a*c)) / (2*a)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+## 2.3 Exercises
+
+
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
 
