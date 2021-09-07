@@ -10,9 +10,30 @@ In this book, we will be using the R software environment for all our analysis. 
 
 ## 2.1 Case study: US Gun Murders
 
-Imagine you live in Europe and are offered a job in a US company with many locations across all states. It is a great job, but news with headlines such as **US Gun Homicide Rate Higher Than Other Developed Countries** have you worried. Charts like this may concern you even more:
+Imagine you live in Europe and are offered a job in a US company with many locations across all states. It is a great job, but news with headlines such as **US Gun Homicide Rate Higher Than Other Developed Countries** have you worried. 
+Charts like this may concern you even more:
+Or even worse, this version from [everytown.org](http://www.everytown.org):
+But then you remeber that the US is a large and diverse country with 50 very different states as well as the District of Columbia. California, for example, has a larger population than Canada, and 20 US states have populations larger than that of Norway. In some respects, the variability across states in the US is akin to the variability across countries in Europe. Furthermore, although not included in the charts above, the murder rates in Lithuania, Ukraine, and Russia are higher than 4 per 100,000. So perhaps the new reports that worried you are too superficial. You have options of where to live and want to determine the safety of each particular state. We will gain some insights by examining data related to gun homicides in the US during 2010 Using R.
+Before we get started with our example, we need to cover logistics as well as some of the very basic building blocks that are required to gain more advanced R skills. Be aware that the usefulness of some of these building blocks may not be immediately obvious, but later in the book you will appreciate having mastered these skills.
+
+## 2.2 The very basics
+
+Before we get started with the motivating dataset, we need to cover the very basics of R.
+
+### 2.2.1 Objects
+
+Suppose a high school student asks us for help solving several quadratic equations of the form $ax^2+bx+c = 0$. The quadratic formula gives us the solutions: $$\frac{-b - \sqrt{b^2 - 4ac}}{2a}\,\, \mbox{ and } \frac{-b + \sqrt{b^2 - 4ac}}{2a}$$ which of course change depending on the values of *a,b* and *c*. One advantage of programming languages is that we can define variables and write expressions with these variables, similar to how we do so in math, but obtain a numeric solution. We will write out general code for the quadratic equation below, but if we are asked to solve $x^2 + x -1 = 0$, than we define:
+
+
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+```{r}
+a <- 1
+b <- 1
+c <- -1
+```
+which store the values for later use, We use <- to assign values to the variables.
+
 
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
 
