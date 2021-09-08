@@ -521,6 +521,43 @@ codes["canada"]
 codes[c("egypt", "italy")]
 ```
 
+## 2.7 Coercion
+
+In general, *coercion* is an attempt by R to be Flexible with data types. When an entry does not match the expected, some of the prebuilt R functions try to guess what was meant before throwing an error. This can also lead to confusion. Failing to understand *coercion* can drvie programmers crazy when attempting to code in R since it behaves quite differently from most other languages in this regard. Let's learn about it with some examples.
+We said that vectors must be all of the same type. So if we try to combine, say, numbers and characters, you might expect an error:
+```{r}
+x <- c(1, "cnanada", 3)
+```
+But we don't get one, not even a warning! What happened? Look at x and its class:
+```{r}
+x
+class(x)
+```
+R *coerced* the data into characters. It guessed that because you put a character string in the vector, you meant the 1 and 3 to actually be character strings "1" and "3". The fact that not even a warning is issued is an example of how coercion can cause many unnoticed errors in R.
+R also offers functions to change from one type to another. For example, you can turn numbers into characters with:
+```{r}
+x <- 1:5
+y <- as.character(x)
+y
+```
+You can turn it back with as,numeric:
+```{r}
+as.numeric(y)
+```
+This function is actually quite useful since datasets that include numbers as character strings are common.
+
+### 2.7.1 Not availables(NA)
+
+When a functions tries to coerce one type to another and encounters an impossible case, it usually gives us a warning and turns the entry into a special value called an NA for "not available.: For example:
+```{r}
+x <- c("1", "b", "3")
+as.numeric(x)
+```
+R does not have any guesses for what number you want when you type b, so it does not try.
+As a data scientist you will encounter the NA s often as they are generally used for missing data, a common porblem in real-world datasets.
+
+## 2.8 Exercises
+
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
 
