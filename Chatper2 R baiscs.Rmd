@@ -1,6 +1,6 @@
 ---
 title: "Chapter2 R basics"
-output:
+output: 2015
   html_document:
     df_print: paged
 ---
