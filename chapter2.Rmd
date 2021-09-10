@@ -1,12 +1,13 @@
 ---
-title: "Chapter 2"
-date: 2021/09/07"
+title: "ch_2_R notebook"
 author: "Philwoo, Han"
-output: html_notebook
+date: "2021/09/07"
+output:
 ---
+
 # Chapter 2 R basics
 
-In this book, we will be using the R software environment for all our analysis. You will learn R and data analysis techniques simultaneously. To follow along you will therefore need access to R. We also recommend the use of an *integrated development environment*(IDE), such as Rstudio, to save your work. Note taht it is common for a course or workshop to offer access to an R environment and an IDE through your web browser, as done by RStudio cloud. If you have access to such a resource you don't need to install R and RStudio. However, if you intend on becoming an advanced data analyst, we highly recommend installing these tools on your computer. Both R and RStudio are free and available online.
+In this book, we will be using the R software environment for all our analysis. You will learn R and data analysis techniques simultaneously. To follow along you will therefore need access to R. We also recommend the use of an *integrated development environment*(IDE), such as Rstudio, to save your work. Note that it is common for a course or workshop to offer access to an R environment and an IDE through your web browser, as done by RStudio cloud. If you have access to such a resource you don't need to install R and RStudio. However, if you intend on becoming an advanced data analyst, we highly recommend installing these tools on your computer. Both R and RStudio are free and available online.
 
 ## 2.1 Case study: US Gun Murders
 
@@ -124,7 +125,7 @@ data()
 ```
 This shows you the object name for these datasets. These datasets are objects that can be used by simply typing the name. For example, if you type
 ```{r}
-co2
+## co2
 ```
 R will show you Mauna Loa atmospheric CO2 concentration data.
 Other prebuilt objects are mathematical quantities, such as the constant \pi and \inf:
@@ -406,8 +407,8 @@ class(a)
 4. Now use the square brackets to extract the state abbreviations and and assign them to the object b. Use the identical function to determine if a and b are the same.
 ```{r}
 b <- murders[["abb"]]
-a == b
-identical(a, b)
+## a == b
+## identical(a, b)
 ```
 5. We saw that the region column stores a factor. You can corroborate this by typing:
 ```{r}
