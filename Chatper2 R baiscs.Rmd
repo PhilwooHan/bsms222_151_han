@@ -253,6 +253,118 @@ ind <- match(c("New York", "Florida", "Texas"), murders$state)
 ind
 murder_rate[ind]
 ```
+2.14 Exercises
+```{r}
+library(dslabs)
+data(murders)
+```
+1.
+```{r}
+murder_rate <- murders$total / murders$population * 100000
+murders$state[murder_rate < 1]
+low <- murder_rate < 1
+```
+2.
+```{r}
+which(low)
+```
+3.
+```{r}
+murders$state[which(low)]
+murders$state[low]
+```
+4.
+```{r}
+a <- murders$region == "Northeast" & low
+murders$state[a]
+```
+5.
+```{r}
+mean(murder_rate)
+b <- murders$state[murder_rate < mean(murder_rate)]
+murders$state[murder_rate < mean(murder_rate)]
+length(b)
+sum(murder_rate[murder_rate < mean(murder_rate)])
+sum(1, 2)
+?sum
+murder_rate
+mean(murder_rate)
+```
+6.
+```{r}
+?match
+match("AK", murders$abb)
+murders$state[match("AK")]
+murders$state[match(c("AK", "MI", "IA"), murders$abb)]
+```
+7.
+```{r}
+c("MA", "ME", "MI", "MO", "MU") %in% murders$abb
+```
+8.
+```{r}
+abbs <- c("MA", "ME", "MI", "MO", "MU")
+ind <- which(!abbs %in% murders$abb)
+abbs[!ind]
+```
+
+## 2.15 Basic plots
+
+### 2.15.1 plot
+
+```{r}
+x <- murders$population / 10^6
+y <- murders$total
+plot(x,y)
+```
+```{r}
+with(murders, plot(population / 10^6,total))
+```
+
+```{r}
+x <- with(murders, total / population * 10^5)
+x
+hist(x)
+```
+
+```{r}
+murders$state[which.max(x)]
+```
+
+### 2.15.3
+```{r}
+murders$rate <- with(murders, total / population * 100000)
+boxplot(rate~region, data = murders)
+```
+
+```{r}
+x <- matrix(1:120, 12, 10)
+x
+image(x)
+```
+
+##2.16 Exercises
+1.
+```{r}
+b <- log10(murders$total)
+plot(a, murders$total)
+plot(a, b)
+```
+
+
+2.
+```{r}
+a <- log10(murders$population)
+
+hist(murders$population/10^6)
+```
+
+
+3.
+```{r}
+boxplot(murders$population~murders$region)
+```
+
 
 
 
