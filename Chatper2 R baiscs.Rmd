@@ -1,8 +1,11 @@
 ---
 title: "Chapter2 R basics"
-output: 2015
+author: "Philwoo, Han"
+date: 21/09/11
+output:
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 # Chapter 2 _ R basics
@@ -68,6 +71,8 @@ as.integer(x)
 ###2.9.1 sort
 
 ```{r}
+library(dslabs)
+data(murders)
 sort(murders$total)
 ```
 ### 2.9.2 order
@@ -143,7 +148,6 @@ murders$state[which.min(murders$population)]
 ```{r}
 rank <- rank(murders$population)
 state <- murders$state
-ind
 my_df <- data.frame(name = state, rank = rank)
 ```
 
@@ -292,10 +296,9 @@ mean(murder_rate)
 ```
 6.
 ```{r}
-?match
-match("AK", murders$abb)
-murders$state[match("AK")]
-murders$state[match(c("AK", "MI", "IA"), murders$abb)]
+##match("AK", murders$abb)
+##murders$state[match("AK")]
+##murders$state[match(c("AK", "MI", "IA"), murders$abb)]
 ```
 7.
 ```{r}
