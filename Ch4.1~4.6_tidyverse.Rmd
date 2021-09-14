@@ -1,5 +1,5 @@
 ---
-title: "Chapter 4 The tidyverse"
+title: "Chapter 4.1~4.6 The tidyverse"
 author: "Philwoo, Han"
 output:
   html_document:
