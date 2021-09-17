@@ -1,0 +1,29 @@
+---
+title: "0915 Quiz"
+author: "Philwoo Han"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(tidyverse)
+library(rio)
+d = rio::import('https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6015533/bin/NIHMS957592-supplement-1.xlsx')
+```
+
+1. Filter를 사용하는 방법
+
+```{r}
+d %>% filter(ASD == "Y") %>% count()
+d %>% filter(ASD == "N") %>% count()
+```
+
+2. 한번에 나타내기 위해 group_by 사용하는 방법
+```{r}
+d %>% group_by(ASD) %>% count()
+```
+
+ASD = 86, non-ASD=37
+
+
