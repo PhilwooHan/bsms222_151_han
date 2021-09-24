@@ -1,7 +1,9 @@
 ---
 title: "Rest Ch.4"
 author: "Philwoo, Han"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 # Chapter4 The tidyverse
