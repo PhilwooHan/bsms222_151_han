@@ -1,7 +1,9 @@
 ---
-title: "[Turtorial] SCN2A mutations in neurodevelopmental disorders"
+title: '[Turtorial] SCN2A mutations in neurodevelopmental disorders'
 author: "Philwoo, Han"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 # 1. Introduction
@@ -28,6 +30,8 @@ Here we obtain the list of mutations in the *Supplementary Table 1* from Sanders
 Using the rio package, reading the excel file from the file link into your workspace. If you don't have the rio package in your system, please install as following:
 ```{r}
 # install.packages('rio')
+library(tidyverse)
+library(purrr)
 ```
 
 Now you can read the file from the website. This will create the d object.
@@ -194,7 +198,7 @@ for(i in 1:293){
 
 Do you think this is an effective approach? As we have done in your assignment, for-loop is not a good choice to process vetors because R can do Vectorization for this process with a shorter and clearer code. So this mean you can apply gsub on vector and return your output to another column(could be new assign).
 ```{r}
-d2 <- d %>% mutate(p.Protein_num = gsub("[^0-9]", "", d$p.Protein))
+d2 <- mutate(d, p.Protein_num = gsub("[^0-9]", "", d$p.Protein))
 ```
 
 ## 3.2 Counting the recurrent mutations
